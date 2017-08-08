@@ -136,18 +136,20 @@ namespace WotPogsIconSet
                 CreatePackage(version);
             }
 
-            string zipFileName = Properties.Settings.Default.gameVersion + "_" + iconSet.FullName + ".zip";
+            string zipFileName =String.Format("solo.pogs_" + iconSet.FullName.ToLower() + ".zip");
             string zipPath = Path.Combine(Properties.Settings.getOutputLocation(), zipFileName);
 
             using (ZipFile archive = new ZipFile())
             {
-                string innerPathIcons = String.Format(@"res_mods\{0}\gui\maps\icons\vehicle\contour\", Properties.Settings.Default.gameVersion);
+                //archive.CompressionMethod = CompressionMethod.None;
+                //archive.CompressionLevel = Ionic.Zlib.CompressionLevel.None;
+
+                string innerPathIcons = String.Format(@"res\gui\maps\icons\vehicle\contour\", Properties.Settings.Default.gameVersion);
                 archive.AddDirectory(iconSet.OutputPathIcon, innerPathIcons);
 
-                string innerPathAtlases = String.Format(@"res_mods\{0}\gui\flash\atlases\", Properties.Settings.Default.gameVersion);
+                string innerPathAtlases = String.Format(@"res\gui\flash\atlases\", Properties.Settings.Default.gameVersion);
                 archive.AddDirectory(iconSet.OutputPathAtlas, innerPathAtlases);
                 
-
                 archive.Save(zipPath);
             }
         }
